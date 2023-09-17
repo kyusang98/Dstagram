@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{object.text|truncatechars:10}}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 panel panel-default">
+                <p><img src="{{object.photo.url}}" style="width:100%;"></p>
+                <button type="button" class="btn btn-outline-primary btn-sm">
+                    {{object.author.username}}</button>
+                <p>{{object.text|linebreaksbr}}</p>
+
+                <a href="{% url 'photo:photo_delete' pk=object.id %}" class="btn btn-outline-danger btn-sm float-right">
+                    Delete</a>
+                <a href="{% url 'photo:photo_update' pk=object.id %}" class="btn btn-outline-success btn-sm float-right">
+                    Update</a>
+            </div>
+            <div class="col-md-2"></div>
+    </div>
+<!--disqus 사용 전에 아래부분이 포함되어있어서 동작이 안됐다. disqus 연동 후에 아래 코드 이용하라-->
+    <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 panel panel-default">
+                {% load disqus_tags %}
+                {% disqus_show_comments %}
+            </div>
+            <div class="col-md-2"></div>
+    </div>
+
+{% endblock %}
