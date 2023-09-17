@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',#배포를 위해 추가
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') #배포를 위해 추가
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #배포를 위해 추가
 
 ROOT_URLCONF = 'config.urls'
 
@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
