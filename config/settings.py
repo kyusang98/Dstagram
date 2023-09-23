@@ -86,7 +86,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {'default': dj_database_url.config(default='sqlite:///BASE_DIR')}
+DATABASES = {'default': dj_database_url.config(default='sqlite:///BASE_DIR')} #데이터베이스 URL 못찾는 오류 해결 코드
+#자꾸 이런 에러가 나타났는데
+#WARNING:root:No DATABASE_URL environment variable set, and so no databases setup
+#이것 때문에 superuser도 못만들고 heroku에서 자꾸 500에러 떳음
+
+
+#그 이유는 DATABASES 쪽에서 dj_database_url 코드가 잘 작동하지 못하고
+#소기의 미션을 수행하지 못하고 있었기 때문이다.
 
 #DATABASES['default'].update(dj_database_url.config(conn_max_age=500)) #배포를 위해 추가
 
