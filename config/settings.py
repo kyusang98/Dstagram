@@ -86,16 +86,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR/'db.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-    }
-}
+DATABASES = {'default': dj_database_url.config(default='sqlite:///BASE_DIR')}
 
-DATABASES['default'].update(dj_database_url.config(conn_max_age=500)) #배포를 위해 추가
-
+#DATABASES['default'].update(dj_database_url.config(conn_max_age=500)) #배포를 위해 추가
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
