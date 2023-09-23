@@ -17,6 +17,7 @@ import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'accounts',
     'disqus',
     'django.contrib.sites',
-    'storages'
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR/'db.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
@@ -129,8 +131,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') #배포를 위해 추가
+#STATIC_URL = 'static/'
+#STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') #배포를 위해 추가
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -138,7 +140,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles') #배포를 위해 추가
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #media 폴더에 사진 저장을 위해 설정
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
@@ -155,6 +157,12 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl':'max-age=86400',
 }
+#AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+
+STATIC_URL = 'http://%s/%s/' %(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 
 DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
 
